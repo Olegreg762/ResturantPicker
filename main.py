@@ -15,10 +15,9 @@ if st.button("Get restaurants"):
     if location == "":
         st.error("Zipcode field cannot be empty.")
     else:
-        # st.write(f"Your location: {get_location(location)}")
+       
         restaurants = get_restaurants(get_location(location))
-        # st.write(f"Found {len(restaurants)} restaurants:")
-        # st.write(restaurants)
+        
         choices = []
         for restaurant in restaurants:
             if "name" in restaurant["properties"]:
