@@ -2,12 +2,11 @@ import random
 import streamlit as st
 from util.restu_finder import get_restaurants
 from util.location import get_location
-import random
 
-st.title("restaurant Picker")
+st.title("Eats Picker")
 
-st.write("Welcome to the restaurant Picker app!.")
-st.write("This app will randomly select a restaurant for you.")
+st.write("Welcome to the Eats Picker app!")
+st.write("This app will randomly select a place for you to eat at.")
 
 location = st.text_input("Enter your Zipcode", key="location")
 
