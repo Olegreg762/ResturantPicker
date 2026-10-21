@@ -50,7 +50,7 @@ else:
         st.write(f"You should eat at {eat_at['name']} located at {eat_at['address']}.")
         st.balloons()
         choices.remove(eat_at)
-        st.write(len(st.session_state.returned_choices))
+        
 
     if len(st.session_state.returned_choices) == 0:
         st.write("No more places to choose from. Try a different location.")
