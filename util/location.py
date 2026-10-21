@@ -13,8 +13,10 @@ def get_location(zipcode):
     headers["Accept"] = "application/json"
 
     resp = requests.get(url, headers=headers)
+    er = False
     try:
         city = resp.json()['results'][0]['city']
     except (KeyError, IndexError):
-        city = "Hmm...odd, I Couldn't find your city name..."
-    return city, [json.dumps(resp.json()["results"][0]['lon']), json.dumps(resp.json()["results"][0]['lat'])]
+        city = ""
+        er = True
+    return city, [json.dumps(resp.json()["results"][0]['lon']), json.dumps(resp.json()["results"][0]['lat'])], er

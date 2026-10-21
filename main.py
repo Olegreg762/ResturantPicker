@@ -20,7 +20,9 @@ if "user_loc" not in st.session_state or st.session_state.user_loc is None:
             
             user_loc = get_location(location)
             st.session_state.user_loc = user_loc
-            st.write(f"City: {user_loc[0]}")
+            if user_loc[2] == False:
+                st.write(f"City: {user_loc[0]}")
+                
             restaurants = get_restaurants(user_loc[1])
             
             choices = []
