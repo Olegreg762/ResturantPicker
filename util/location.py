@@ -1,7 +1,6 @@
 import requests
 from requests.structures import CaseInsensitiveDict
 import streamlit as st
-import json
 
 
 def get_location(zipcode):
@@ -19,4 +18,4 @@ def get_location(zipcode):
     except (KeyError, IndexError):
         city = ""
         er = True
-    return city, [json.dumps(resp.json()["results"][0]['lon']), json.dumps(resp.json()["results"][0]['lat'])], er
+    return city, [resp.json()["results"][0]['lon'], resp.json()["results"][0]['lat']], er

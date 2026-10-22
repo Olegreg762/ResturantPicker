@@ -29,10 +29,13 @@ if "user_loc" not in st.session_state or st.session_state.user_loc is None:
             for restaurant in restaurants:
                 if "name" in restaurant["properties"]:
                     choices.append({"name":(restaurant["properties"]["name"]),
-                    "address":(restaurant["properties"]["address_line2"].strip(", United States of America"))})
-            eat_at = (random.choice(choices))
-            st.write(f"You should eat at {eat_at['name']} located at {eat_at['address']}.")
-            st.balloons()
+                    "address":(restaurant["properties"]["address_line2"].removesuffix(", United States of America"))})
+            if choices:
+                eat_at = (random.choice(choices))
+                st.write(f"You should eat at {eat_at['name']} located at {eat_at['address']}.")
+                st.balloons()
+            else:
+                st.warning('No restaurants found, try another location.')
                 
             choices.remove(eat_at)
             st.session_state.returned_choices = choices
