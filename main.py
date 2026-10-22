@@ -2,14 +2,22 @@ import random
 import streamlit as st
 from util.restu_finder import get_restaurants
 from util.location import get_location
-
+from util.gps import get_gps
 st.title("Eats Picker")
 
 st.write("Welcome to the Eats Picker app!")
 st.write("This app will randomly select a place for you to eat at.")
 
-    
-location = st.text_input("Enter your Zipcode", key="location")
+location_method = st.radio("How would you like to specify your location?", ("Zipcode", "Current Location"))
+
+if location_method == "Zipcode":
+    location = st.text_input("Enter your Zipcode", key="location")
+else:
+    location = get_gps()
+    if location == None:
+        st.warning("Failed to get current location. Please enter a zipcode.")
+        st.rerun()
+
 
 if "user_loc" not in st.session_state or st.session_state.user_loc is None:
     
@@ -18,12 +26,9 @@ if "user_loc" not in st.session_state or st.session_state.user_loc is None:
             st.error("Zipcode field cannot be empty.")
         else:
             
-            user_loc = get_location(location)
+            user_loc = get_location(location) if location_method == "Zipcode" else location
             st.session_state.user_loc = user_loc
-            if user_loc[2] == False:
-                st.write(f"You are in {user_loc[0]}")
-                
-            restaurants = get_restaurants(user_loc[1])
+            restaurants = get_restaurants(user_loc[1]) if location_method == "Zipcode" else get_restaurants(user_loc)
             
             choices = []
             for restaurant in restaurants:
