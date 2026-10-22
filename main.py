@@ -39,18 +39,18 @@ if "user_loc" not in st.session_state or st.session_state.user_loc is None:
                 eat_at = (random.choice(choices))
                 st.write(f"You should eat at {eat_at['name']} located at {eat_at['address']}.")
                 st.balloons()
+                choices.remove(eat_at)
+                st.session_state.returned_choices = choices
+                if st.button("Try Different Place"):
+                        choices = st.session_state.returned_choices
+                        eat_at = (random.choice(choices))
+                        st.write(f"You should eat at {eat_at['name']} located at {eat_at['address']}.")
+                        st.balloons()
+                        choices.remove(eat_at)
+                        st.write(len(st.session_state.returned_choices))
             else:
                 st.warning('No restaurants found, try another location.')
                 
-            choices.remove(eat_at)
-            st.session_state.returned_choices = choices
-            if st.button("Try Different Place"):
-                    choices = st.session_state.returned_choices
-                    eat_at = (random.choice(choices))
-                    st.write(f"You should eat at {eat_at['name']} located at {eat_at['address']}.")
-                    st.balloons()
-                    choices.remove(eat_at)
-                    st.write(len(st.session_state.returned_choices))
 else:
     if st.button("Try Different Place"):
         choices = st.session_state.returned_choices
