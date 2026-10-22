@@ -14,14 +14,14 @@ if location_method == "Zipcode":
     location = st.text_input("Enter your Zipcode", key="location")
 else:
     location = get_gps()
-    if location == None:
+    if location == False:
         st.warning("Failed to get current location. Please enter a zipcode.")
-        st.rerun()
-
+        
+location_ready = location is not False and location != ""
 
 if "user_loc" not in st.session_state or st.session_state.user_loc is None:
     
-    if st.button("Get restaurants"):
+    if st.button("Get restaurants", disabled=not location_ready):
         if location == "":
             st.error("Zipcode field cannot be empty.")
         else:

@@ -62,6 +62,6 @@ def get_gps():
     )
 
     if result.latitude is None or result.longitude is None:
-        return None
+        return False
 
     return [result.longitude, result.latitude]
